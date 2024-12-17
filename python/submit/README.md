@@ -232,7 +232,7 @@ options:
 
 ## bat 脚本编写示例
 
-`.bat` 文件是一种[批处理文件](https://en.wikipedia.org/wiki/Batch_file)，你可以将多条 `submit` 命令保存在单个 `.bat` 文件中，这样只需单击这个文件即可批量处理 `.sas` 文件。
+`.bat` 文件是一种[批处理文件](https://en.wikipedia.org/wiki/Batch_file)，你可以将多条 `submit` 命令保存在单个 `.bat` 文件中，这样只需双击这个文件即可批量处理 `.sas` 文件。
 
 例如：
 
