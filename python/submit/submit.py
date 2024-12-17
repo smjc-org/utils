@@ -5,7 +5,6 @@ import argparse
 import os
 import re
 from enum import IntFlag, auto
-import sys
 
 from chardet import detect
 

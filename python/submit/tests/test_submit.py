@@ -1,4 +1,5 @@
 import os
+import shutil
 
 from submit import ConvertMode, copy_file, copy_directory
 
@@ -42,6 +43,9 @@ class TestSubmit:
                     assert tmp_code == validate_code
                 else:
                     assert False
+
+    def teardown_class(self):
+        shutil.rmtree("tests/tmp")
 
 
 def main():
