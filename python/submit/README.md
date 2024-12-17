@@ -14,7 +14,7 @@ pip install git+https://github.com/smjc-macro/utils.git@main&subdirectory=python
 
 ## 如何使用
 
-`submit` 命令会之别指定 `.sas` 文件中的特殊注释，根据这些注释，将多余的代码片段删除，保留需要递交的代码片段。
+`submit` 命令会识别 `.sas` 文件中的特殊注释，根据这些注释，删除多余的代码片段，保留需要递交的代码片段。
 
 `submit` 命令可以识别的特殊注释如下：
 
@@ -76,7 +76,7 @@ submit cpf "adae.sas" "adae.txt"
 
 #### --convert-mode
 
-`--convert-mode` 选项用于指定处理模式，可选值为：`positive`, `negative`, `both`
+`--convert-mode` 选项用于指定处理模式，可选值为：`positive`, `negative`, `both`，默认为 `both`。
 
 - `positive`: 仅处理 `/* SUBMIT BEGIN */`, `/* SUBMIT END */`
 - `negative`: 仅处理 `/* NOT SUBMIT BEGIN*/`, `/* NOT SUBMIT END */`
@@ -160,7 +160,7 @@ submit copyfile --convert-mode negative --encoding gbk
 submit copydir "/source" "/dest"
 ```
 
-`copydir` 也支持 [`--convert-mode`](#--convert-mode) 和 [`encoding`](#--encoding) 选项，用法相同。
+`copydir` 也支持 [`--convert-mode`](#--convert-mode) 和 [`--encoding`](#--encoding) 选项，用法相同。
 
 #### --exclude-dirs
 
@@ -180,13 +180,13 @@ submit copydir "/source" "/dest" --exclude-dirs macro qc initial
 
 #### --exclude-files
 
-`--exclude-files` 选项指定排除的文件列表。这些文件将会被跳过处理。
+`--exclude-files` 选项指定排除的文件列表，这些文件将会被跳过处理。
 
 ```bash
 submit copydir "/source" "/dest" --exclude-dirs macro --exclude-files fcmp.sas format.sas
 ```
 
-上述命令将跳过处理目录名称匹配 `macro` 中的文件，并在文件名称匹配 `fcmp.sas` 或 `format.sas` （无论是否在 `macro` 目录中）时跳过处理。
+上述命令将在目录名称匹配 `macro` 时跳过处理其中的文件，并在文件名称匹配 `fcmp.sas` 或 `format.sas` （无论是否在 `macro` 目录中）时跳过处理。
 
 ## 命令行选项参考
 
@@ -202,7 +202,7 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
   -c, --convert-mode {positive,negative,both}
-                        转换模式
+                        转换模式（默认 both）
   --encoding ENCODING   编码格式（默认自动检测）
 ```
 
@@ -218,10 +218,22 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
   -c, --convert-mode {positive,negative,both}
-                        转换模式
+                        转换模式（默认 both）
   --encoding ENCODING   编码格式（默认自动检测）
   -exf, --exclude-files [EXCLUDE_FILES ...]
                         排除文件列表（默认无）
   -exd, --exclude-dirs [EXCLUDE_DIRS ...]
                         排除目录列表（默认无）
+```
+
+## bat 脚本编写指南
+
+`.bat` 文件是一种[批处理文件](https://en.wikipedia.org/wiki/Batch_file)，你可以将多条 `submit` 命令保存在单个 `.bat` 文件中，这样只需单击这个文件即可批量处理 `.sas` 文件。
+
+例如：
+
+```bash
+submit copydir "D:/project/code/adam" "D:/project/submit/adam"
+submit copydir "D:/project/code/tfl" "D:/project/submit/tfl" --exclude-files merge.sas
+submit copydir "D:/project/code/macro" "D:/project/submit/macro" --convert-mode negative
 ```

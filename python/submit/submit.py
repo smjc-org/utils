@@ -150,7 +150,7 @@ def main() -> None:
         type=ConvertMode.get_from_str,
         choices=ConvertMode.get_available_values(),
         default="both",
-        help="转换模式",
+        help="转换模式（默认 both）",
     )
     parent_parser.add_argument("--encoding", default=None, help="编码格式（默认自动检测）")
 
