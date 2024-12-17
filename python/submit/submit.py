@@ -41,6 +41,12 @@ class ConvertMode(IntFlag):
     def get_from_str(cls, value: str) -> ConvertMode:
         return cls[value.upper()]
 
+    @classmethod
+    def get_available_values(cls) -> list[str]:
+        modes = [mode.name.lower() for mode in cls]
+        modes.append("both")
+        return modes
+
 
 def copy_file(
     sas_file: str, txt_file: str, convert_mode: ConvertMode = ConvertMode.BOTH, encoding: str | None = None
@@ -88,7 +94,8 @@ def copy_directory(
     sas_dir: str,
     txt_dir: str,
     convert_mode: ConvertMode = ConvertMode.BOTH,
-    exclude: list[str] = None,
+    exclude_files: list[str] = None,
+    exclude_dirs: list[str] = None,
     encoding: str | None = None,
 ) -> None:
     """将 SAS 代码复制到 txt 文件中，并移除指定标记之间的内容。
@@ -97,7 +104,8 @@ def copy_directory(
         sas_dir (str): SAS 文件夹路径。
         txt_dir (str): TXT 文件夹路径。
         convert_mode (ConvertMode, optional): 转换模式，默认值为 ConvertMode.BOTH。
-        exclude (list[str], optional): 排除文件名列表，默认值为 None。
+        exclude_files (list[str], optional): 排除文件列表，默认值为 None。
+        exclude_dirs (list[str], optional): 排除目录列表，默认值为 None。
         encoding (str | None, optional): 字符编码，默认值为 None，将自动检测编码。
     """
 
@@ -107,13 +115,16 @@ def copy_directory(
     if not os.path.exists(txt_dir):
         os.makedirs(txt_dir)
 
-    for root, _, files in os.walk(sas_dir):
-        for file in files:
-            if exclude is not None and file in exclude:
+    for dirpath, _, filenames in os.walk(sas_dir):
+        if exclude_dirs is not None and os.path.split(dirpath)[-1] in exclude_dirs:
+            continue
+        ref_path = os.path.relpath(dirpath, sas_dir)
+        for file in filenames:
+            if exclude_files is not None and file in exclude_files:
                 continue
             if file.endswith(".sas"):
-                sas_file = os.path.join(root, file)
-                txt_file = os.path.join(txt_dir, file.replace(".sas", ".txt"))
+                sas_file = os.path.join(dirpath, file)
+                txt_file = os.path.join(txt_dir, ref_path, file.replace(".sas", ".txt"))
                 copy_file(sas_file, txt_file, convert_mode=convert_mode, encoding=encoding)
 
 
@@ -127,9 +138,15 @@ def main():
     parser.add_argument("sas_dir", help="SAS 文件目录")
     parser.add_argument("txt_dir", help="TXT 文件目录")
     parser.add_argument(
-        "-c", "--convert_mode", type=ConvertMode.get_from_str, choices=ConvertMode, default="both", help="转换模式"
+        "-c",
+        "--convert_mode",
+        type=ConvertMode.get_from_str,
+        choices=ConvertMode.get_available_values(),
+        default="both",
+        help="转换模式",
     )
-    parser.add_argument("-ex", "--exclude", nargs="*", default=None, help="排除文件列表（默认无）")
+    parser.add_argument("-exf", "--exclude_files", nargs="*", default=None, help="排除文件列表（默认无）")
+    parser.add_argument("-exd", "--exclude_dirs", nargs="*", default=None, help="排除目录列表（默认无）")
     parser.add_argument("-ec", "--encoding", default=None, help="编码格式（默认自动检测）")
     args = parser.parse_args()
 
@@ -137,7 +154,8 @@ def main():
         sas_dir=args.sas_dir,
         txt_dir=args.txt_dir,
         convert_mode=args.convert_mode,
-        exclude=args.exclude,
+        exclude_files=args.exclude_files,
+        exclude_dirs=args.exclude_dirs,
         encoding=args.encoding,
     )
 

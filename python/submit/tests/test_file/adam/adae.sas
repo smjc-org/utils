@@ -17,5 +17,10 @@ proc sql noprint;
 quit;
 /*SUBMIT END*/
 
+/*NOT SUBMIT BEGIN*/
+proc report;
+quit;
+/*NOT SUBMIT END*/
+
 %LOG;
 %ERROR;
