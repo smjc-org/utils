@@ -11,8 +11,28 @@ requires-python = ">=3.10"
 dependencies = [
     "chardet>=5.2.0",
 ]
-authors = [{ name = "Snoopy1866"}]
-license = { file = "MIT" }
+authors = [{ name = "Snoopy1866", email = "1753199432@qq.com"}]
+license = {file = "LICENSE"}
+keywords = ["sas", "nmpa", "regulatory", "guidelines", "submit"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+
+[project.urls]
+Homepage = "https://github.com/smjc-org/utils/tree/main/python/submit"
+Documentation = "https://github.com/smjc-org/utils/blob/main/python/submit/README.md"
+Repository = "https://github.com/smjc-org/utils.git"
+Issues = "https://github.com/smjc-org/utils/issues"
+Changelog = "https://github.com/smjc-org/utils/tree/main/python/submit/CHANGELOG.md"
 
 [project.scripts]
 submit = "submit:main"
