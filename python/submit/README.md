@@ -80,7 +80,7 @@ submit cpf "adae.sas" "adae.txt"
 >
 > - `cpf` 是 `copyfile` 的别名（_alias_），大多数选项都具有别名，可通过 `--help` 命令查看。
 > - 可以使用相对路径和绝对路径，使用相对路径时，以 `submit` 命令执行所在目录为根。
->   例如：在 `code` 目录下处理子目录 `/code/adam` 中的 `adae.sas` 文件，应该执行 `submit copyfile "adam/adae.sas" "submit/adae.txt"`
+>   例如：在 `/code` 目录下处理子目录 `/code/adam` 中的 `adae.sas` 文件，应该执行 `submit copyfile "adam/adae.sas" "submit/adae.txt"`
 
 #### --convert-mode
 
