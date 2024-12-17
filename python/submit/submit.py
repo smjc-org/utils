@@ -5,6 +5,7 @@ import argparse
 import os
 import re
 from enum import IntFlag, auto
+import sys
 
 from chardet import detect
 
@@ -42,9 +43,9 @@ class ConvertMode(IntFlag):
         return cls[value.upper()]
 
     @classmethod
-    def get_available_values(cls) -> list[str]:
-        modes = [mode.name.lower() for mode in cls]
-        modes.append("both")
+    def get_available_values(cls) -> list[ConvertMode]:
+        modes = [mode for mode in cls]
+        modes.append(ConvertMode.BOTH)
         return modes
 
 
@@ -128,36 +129,63 @@ def copy_directory(
                 copy_file(sas_file, txt_file, convert_mode=convert_mode, encoding=encoding)
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(
         prog="submit",
         usage="%(prog)s [options]",
         description="本工具用于在代码递交之前进行简单的转换。",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        add_help=False,
     )
-    parser.add_argument("sas_dir", help="SAS 文件目录")
-    parser.add_argument("txt_dir", help="TXT 文件目录")
     parser.add_argument(
+        "-h", "--help", action="help", default=argparse.SUPPRESS, help="显示帮助信息，例如: submit copyfile --help"
+    )
+    subparsers = parser.add_subparsers(dest="command")
+
+    # 公共参数
+    parent_parser = argparse.ArgumentParser(add_help=False)
+    parent_parser.add_argument(
         "-c",
-        "--convert_mode",
+        "--convert-mode",
         type=ConvertMode.get_from_str,
         choices=ConvertMode.get_available_values(),
         default="both",
         help="转换模式",
     )
-    parser.add_argument("-exf", "--exclude_files", nargs="*", default=None, help="排除文件列表（默认无）")
-    parser.add_argument("-exd", "--exclude_dirs", nargs="*", default=None, help="排除目录列表（默认无）")
-    parser.add_argument("-ec", "--encoding", default=None, help="编码格式（默认自动检测）")
+    parent_parser.add_argument("--encoding", default=None, help="编码格式（默认自动检测）")
+
+    # 子命令 copyfile
+    parser_file = subparsers.add_parser("copyfile", aliases=["cpf"], parents=[parent_parser], help="单个 SAS 文件转换")
+    parser_file.add_argument("sas_file", help="SAS 文件路径")
+    parser_file.add_argument("txt_file", help="TXT 文件路径")
+
+    # 子命令 copydir
+    parser_dir = subparsers.add_parser("copydir", aliases=["cpd"], parents=[parent_parser], help="多个 SAS 文件转换")
+    parser_dir.add_argument("sas_dir", help="SAS 文件目录")
+    parser_dir.add_argument("txt_dir", help="TXT 文件目录")
+    parser_dir.add_argument("-exf", "--exclude-files", nargs="*", default=None, help="排除文件列表（默认无）")
+    parser_dir.add_argument("-exd", "--exclude-dirs", nargs="*", default=None, help="排除目录列表（默认无）")
+
     args = parser.parse_args()
 
-    copy_directory(
-        sas_dir=args.sas_dir,
-        txt_dir=args.txt_dir,
-        convert_mode=args.convert_mode,
-        exclude_files=args.exclude_files,
-        exclude_dirs=args.exclude_dirs,
-        encoding=args.encoding,
-    )
+    if args.command == "copyfile":
+        copy_file(
+            sas_file=args.sas_file,
+            txt_file=args.txt_file,
+            convert_mode=args.convert_mode,
+            encoding=args.encoding,
+        )
+    elif args.command == "copydir":
+        copy_directory(
+            sas_dir=args.sas_dir,
+            txt_dir=args.txt_dir,
+            convert_mode=args.convert_mode,
+            exclude_files=args.exclude_files,
+            exclude_dirs=args.exclude_dirs,
+            encoding=args.encoding,
+        )
+    else:
+        parser.print_help()
 
 
 if __name__ == "__main__":
