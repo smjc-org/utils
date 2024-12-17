@@ -1,5 +1,11 @@
 # submit.py
 
+![Python Version from PEP 621 TOML](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2Fsmjc-org%2Futils%2Frefs%2Fheads%2Ffeat-submit%2Fpython%2Fsubmit%2Fpyproject.toml)
+![GitHub License](https://img.shields.io/github/license/smjc-org/utils)
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![pytest](https://github.com/smjc-org/utils/actions/workflows/python-submit-pytest.yml/badge.svg)](https://github.com/smjc-org/utils/actions/workflows/python-submit-pytest.yml)
+
 本程序用于从 `.sas` 文件中提取需要递交至监管机构的代码，并另存为 `.txt` 格式的文件。
 
 ## 安装
