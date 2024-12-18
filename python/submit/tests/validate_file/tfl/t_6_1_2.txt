@@ -6,6 +6,3 @@ quit;
 proc sql noprint;
     create table work.t_6_1_1 as select * from adsl;
 quit;
-
-
-
