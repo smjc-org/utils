@@ -39,7 +39,10 @@ class ConvertMode(IntFlag):
 
     @classmethod
     def get_from_str(cls, value: str) -> ConvertMode:
-        return cls[value.upper()]
+        try:
+            return cls[value.upper()]
+        except KeyError:
+            raise argparse.ArgumentTypeError(f"无效的转换模式：{value}")
 
     @classmethod
     def get_available_values(cls) -> list[ConvertMode]:
