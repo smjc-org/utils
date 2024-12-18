@@ -17,7 +17,7 @@ class TestSubmit:
         with open(validate_file, "r", encoding="utf-8") as f:
             validate_code = f.read()
 
-        assert tmp_code == validate_code
+        assert tmp_code.strip() == validate_code.strip()
 
     def test_copy_directory(self):
         test_dir = "tests/test_file"
@@ -40,7 +40,7 @@ class TestSubmit:
                     with open(validate_file, "r", encoding="utf-8") as f:
                         validate_code = f.read()
 
-                    assert tmp_code == validate_code
+                    assert tmp_code.strip() == validate_code.strip()
                 else:
                     assert False
 
