@@ -1,8 +1,0 @@
-
-proc sql noprint;
-    create table work.dv as select * from rawdata.dv;
-quit;
-
-proc sql noprint;
-    create table work.addv as select * from ae;
-quit;

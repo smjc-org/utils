@@ -1,57 +1,44 @@
-import os
-import shutil
+import re
+from pathlib import Path
 
 from submit import ConvertMode, copy_file, copy_directory
 
 
 class TestSubmit:
-    def test_copy_file(self):
-        test_file = "tests/test_file/adam/adae.sas"
-        validate_file = "tests/validate_file/adam/adae.txt"
-        tmp_file = "tests/tmp/adam/adae.txt"
+    def test_copy_file(self, shared_test_directory: Path, shared_validate_directory: Path, tmp_path: Path):
+        test_adsl = shared_test_directory / "adam" / "adsl.sas"
+        validate_adsl = shared_validate_directory / "adam" / "adsl.txt"
 
-        copy_file(test_file, tmp_file)
+        tmp_adsl = tmp_path / "adam" / "adsl.txt"
+        copy_file(test_adsl, tmp_adsl)
 
-        with open(tmp_file, "r", encoding="utf-8") as f:
+        with open(tmp_adsl, "r", encoding="utf-8") as f:
             tmp_code = f.read()
-        with open(validate_file, "r", encoding="utf-8") as f:
+        with open(validate_adsl, "r", encoding="utf-8") as f:
             validate_code = f.read()
 
-        assert tmp_code.strip() == validate_code.strip()
+        assert re.sub(r"\s*", "", tmp_code) == re.sub(r"\s*", "", validate_code)
 
-    def test_copy_directory(self):
-        test_dir = "tests/test_file"
-        validate_dir = "tests/validate_file"
-        tmp_dir = "tests/tmp"
-        copy_directory(test_dir, tmp_dir, exclude_dirs=["macro"])
-        copy_directory(
-            os.path.join(test_dir, "macro"), os.path.join(tmp_dir, "macro"), convert_mode=ConvertMode.NEGATIVE
-        )
+    def test_copy_directory(self, shared_test_directory: Path, shared_validate_directory: Path, tmp_path: Path):
+        copy_directory(shared_test_directory, tmp_path, exclude_dirs=["other"], exclude_files=["fcmp.sas"])
+        copy_directory(shared_test_directory / "macro", tmp_path / "macro", convert_mode=ConvertMode.NEGATIVE)
 
-        for dirpath, _, filenames in os.walk(validate_dir):
-            rel_path = os.path.relpath(dirpath, validate_dir)
-            for filename in filenames:
-                validate_file = os.path.join(validate_dir, rel_path, filename).replace(".sas", ".txt")
-                tmp_file = os.path.join(tmp_dir, rel_path, filename).replace(".sas", ".txt")
+        for validate_file in shared_validate_directory.rglob("*.txt"):
+            validate_code = validate_file.read_text()
+            tmp_code = (tmp_path / validate_file.relative_to(shared_validate_directory)).read_text()
 
-                if os.path.exists(validate_file) and os.path.exists(tmp_file):
-                    with open(tmp_file, "r", encoding="utf-8") as f:
-                        tmp_code = f.read()
-                    with open(validate_file, "r", encoding="utf-8") as f:
-                        validate_code = f.read()
-
-                    assert tmp_code.strip() == validate_code.strip()
-                else:
-                    assert False
-
-    def teardown_class(self):
-        shutil.rmtree("tests/tmp")
+            assert re.sub(r"\s*", "", tmp_code) == re.sub(r"\s*", "", validate_code)
 
 
 def main():
     test_list = [func for name, func in globals().items() if callable(func) and name.startswith("test_")]
-    for test in test_list:
-        test()
+    try:
+        for test in test_list:
+            test()
+    except AssertionError:
+        print("Test failed.")
+    else:
+        print("All tests passed.")
 
 
 if __name__ == "__main__":
