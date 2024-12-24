@@ -8,18 +8,19 @@ from enum import IntFlag, auto
 
 from chardet import detect
 
+SYLBOMS = r"[\s\*\-\=]"
 
 # 需要递交的代码片段的开始和结束标记
 # /*SUBMIT BEGIN*/ 和 /*SUBMIT END*/ 之间的代码将被递交
-COMMENT_SUBMIT_BEGIN = r"\/\*\s*SUBMIT\s*BEGIN\s*\*\/"
-COMMENT_SUBMIT_END = r"\/\*\s*SUBMIT\s*END\s*\*\/"
+COMMENT_SUBMIT_BEGIN = rf"\/\*{SYLBOMS}*SUBMIT\s*BEGIN{SYLBOMS}*\*\/"
+COMMENT_SUBMIT_END = rf"\/\*{SYLBOMS}*SUBMIT\s*END{SYLBOMS}*\*\/"
 
 
 # 不要递交的代码片段的开始和结束标记
 # /*NOT SUBMIT BEGIN*/ 和 /*NOT SUBMIT END*/ 之间的代码将不会被递交
 # /*NOT SUBMIT BEGIN*/ 和 /*NOT SUBMIT END*/ 的优先级高于 /*SUBMIT BEGIN*/ 和 /*SUBMIT END*/
-COMMENT_NOT_SUBMIT_NEGIN: str = r"\/\*\s*NOT\s*SUBMIT\s*BEGIN\s*\*\/"
-COMMENT_NOT_SUBMIT_END: str = r"\/\*\s*NOT\s*SUBMIT\s*END\s*\*\/"
+COMMENT_NOT_SUBMIT_NEGIN: str = rf"\/\*{SYLBOMS}*NOT\s*SUBMIT\s*BEGIN{SYLBOMS}*\*\/"
+COMMENT_NOT_SUBMIT_END: str = rf"\/\*{SYLBOMS}*NOT\s*SUBMIT\s*END{SYLBOMS}*\*\/"
 
 
 class ConvertMode(IntFlag):
