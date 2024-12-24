@@ -30,11 +30,11 @@ def shared_test_directory(tmp_path_factory: pytest.TempPathFactory) -> Path:
                                        proc datasets library = work memtype = data kill noprint;
                                        quit;
 
-                                       /*SUBMIT BEGIN*/
+                                       /*====SUBMIT BEGIN====*/
                                        proc sql;
                                            create table adae as select * from rawdata.ae;
                                        quit;
-                                       /*SUBMIT END*/
+                                       /*====SUBMIT END====*/
 
                                        proc report;
                                        quit;
@@ -46,11 +46,11 @@ def shared_test_directory(tmp_path_factory: pytest.TempPathFactory) -> Path:
                                     proc datasets library = work memtype = data kill noprint;
                                     quit;
 
-                                    /*SUBMIT BEGIN*/
+                                    /*=- *SUBMIT BEGIN=- **/
                                     proc sql;
                                         create table t1 as select * from adam.adsl;
                                     quit;
-                                    /*SUBMIT END*/
+                                    /*=- *SUBMIT END=- **/
 
                                     proc report;
                                     quit;
@@ -59,11 +59,11 @@ def shared_test_directory(tmp_path_factory: pytest.TempPathFactory) -> Path:
                                     proc datasets library = work memtype = data kill noprint;
                                     quit;
 
-                                    /*SUBMIT BEGIN*/
+                                    /*====SUBMIT BEGIN====*/
                                     proc sql;
                                         create table t2 as select * from adam.adae;
                                     quit;
-                                    /*SUBMIT END*/
+                                    /*====SUBMIT END====*/
 
                                     proc report;
                                     quit;
@@ -108,7 +108,7 @@ def shared_test_directory(tmp_path_factory: pytest.TempPathFactory) -> Path:
                                                   select * from adae;
                                               quit;
 
-                                              /*NOT SUBMIT BEGIN*/
+                                              /*====NOT SUBMIT BEGIN====*/
                                               proc report;
                                               quit;
                                               /*NOT SUBMIT END*/

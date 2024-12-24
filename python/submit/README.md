@@ -30,10 +30,15 @@ pip install git+https://github.com/smjc-macro/utils.git@main#subdirectory=python
 
 `submit` 命令可以识别的特殊注释如下：
 
-- `/* SUBMIT BEGIN */`: 指定**需要**提交的代码的**起始**位置
-- `/* SUBMIT END */`: 指定**需要**提交的代码的**终止**位置
-- `/* NOT SUBMIT BEGIN*/`: 指定**无需**提交的代码的**起始**位置
-- `/* NOT SUBMIT END */`: 指定**无需**提交的代码的**终止**位置
+- `/*`_`symbols`_`SUBMIT BEGIN`_`symbols`_`*/`: 指定**需要**提交的代码的**起始**位置
+- `/*`_`symbols`_`SUBMIT END`_`symbols`_`*/`: 指定**需要**提交的代码的**终止**位置
+- `/*`_`symbols`_`NOT SUBMIT BEGIN`_`symbols`_`*/`: 指定**无需**提交的代码的**起始**位置
+- `/*`_`symbols`_`NOT SUBMIT END`_`symbols`_`*/`: 指定**无需**提交的代码的**终止**位置
+
+> ![NOTE]
+>
+> 1. _`symbols`_ 可以是符号 `*`, `-`, `=`, ` `(空格) 的任意组合
+> 2. 注释不区分大小写
 
 举例：
 
