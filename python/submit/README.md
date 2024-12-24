@@ -35,7 +35,7 @@ pip install git+https://github.com/smjc-macro/utils.git@main#subdirectory=python
 - `/*`_`symbols`_`NOT SUBMIT BEGIN`_`symbols`_`*/`: 指定**无需**提交的代码的**起始**位置
 - `/*`_`symbols`_`NOT SUBMIT END`_`symbols`_`*/`: 指定**无需**提交的代码的**终止**位置
 
-> ![NOTE]
+> [!NOTE]
 >
 > 1. _`symbols`_ 可以是符号 `*`, `-`, `=`, ` `(空格) 的任意组合
 > 2. 注释不区分大小写
