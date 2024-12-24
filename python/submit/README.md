@@ -37,8 +37,8 @@ pip install git+https://github.com/smjc-macro/utils.git@main#subdirectory=python
 
 > [!NOTE]
 >
-> 1. _`symbols`_ 可以是符号 `*`, `-`, `=`, ` `(空格) 的任意组合
-> 2. 注释不区分大小写
+> - _`symbols`_ 可以是符号 `*`, `-`, `=`, ` `(空格) 的任意组合
+> - 注释不区分大小写
 
 举例：
 
