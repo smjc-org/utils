@@ -20,7 +20,9 @@ class TestSubmit:
         assert re.sub(r"\s*", "", tmp_code) == re.sub(r"\s*", "", validate_code)
 
     def test_copy_directory(self, shared_test_directory: Path, shared_validate_directory: Path, tmp_path: Path):
-        copy_directory(shared_test_directory, tmp_path, exclude_dirs=["other"], exclude_files=["fcmp.sas"])
+        copy_directory(
+            shared_test_directory, tmp_path, exclude_dirs=["other"], exclude_files=["fcmp.sas"], macro_subs={"id": ""}
+        )
         copy_directory(shared_test_directory / "macro", tmp_path / "macro", convert_mode=ConvertMode.NEGATIVE)
 
         for validate_file in shared_validate_directory.rglob("*.txt"):

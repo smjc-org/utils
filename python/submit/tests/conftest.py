@@ -59,9 +59,11 @@ def shared_test_directory(tmp_path_factory: pytest.TempPathFactory) -> Path:
                                     proc datasets library = work memtype = data kill noprint;
                                     quit;
 
+                                    %let id = %str();
+
                                     /*====SUBMIT BEGIN====*/
                                     proc sql;
-                                        create table t2 as select * from adam.adae;
+                                        create table t2 as select * from adam.adeff&id;
                                     quit;
                                     /*====SUBMIT END====*/
 
@@ -175,7 +177,7 @@ def shared_validate_directory(tmp_path_factory: pytest.TempPathFactory) -> Path:
                                     """)
     (dir_tfl / "t2.txt").write_text("""
                                     proc sql;
-                                        create table t2 as select * from adam.adae;
+                                        create table t2 as select * from adam.adeff;
                                     quit;
                                     """)
     (dir_tfl / "t3.txt").write_text("""
