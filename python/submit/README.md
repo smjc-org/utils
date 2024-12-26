@@ -254,8 +254,7 @@ submit copydir "/source" "/dest" --exclude-dirs macro --exclude-files fcmp.sas f
 ### submit copyfile
 
 ```bash
-usage: submit [options] copyfile [-h] [-c {positive,negative,both}] [--macro-subs MACRO_SUBS] [--encoding ENCODING]
-                                 sas_file txt_file
+usage: submit [options] copyfile [-h] [-c {positive,negative,both}] [--macro-subs MACRO_SUBS] [--encoding ENCODING] sas_file txt_file
 
 positional arguments:
   sas_file              SAS 文件路径
@@ -266,16 +265,14 @@ options:
   -c, --convert-mode {positive,negative,both}
                         转换模式（默认 both）
   --macro-subs MACRO_SUBS
-                        宏变量替换，格式为 {key1=value1,key2=value2}（默认无）
+                        宏变量替换，格式为 {key=value,...}（默认无）
   --encoding ENCODING   编码格式（默认自动检测）
 ```
 
 ### submit copydir
 
 ```bash
-usage: submit [options] copydir [-h] [-c {positive,negative,both}] [--macro-subs MACRO_SUBS] [--encoding ENCODING]
-                                [-exf [EXCLUDE_FILES ...]] [-exd [EXCLUDE_DIRS ...]]
-                                sas_dir txt_dir
+usage: submit [options] copydir [-h] [-c {positive,negative,both}] [--macro-subs MACRO_SUBS] [--encoding ENCODING] [-exf [EXCLUDE_FILES ...]] [-exd [EXCLUDE_DIRS ...]] sas_dir txt_dir
 
 positional arguments:
   sas_dir               SAS 文件目录
@@ -286,7 +283,7 @@ options:
   -c, --convert-mode {positive,negative,both}
                         转换模式（默认 both）
   --macro-subs MACRO_SUBS
-                        宏变量替换，格式为 {key1=value1,key2=value2}（默认无）
+                        宏变量替换，格式为 {key=value,...}（默认无）
   --encoding ENCODING   编码格式（默认自动检测）
   -exf, --exclude-files [EXCLUDE_FILES ...]
                         排除文件列表（默认无）
