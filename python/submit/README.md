@@ -211,7 +211,17 @@ submit copyfile --convert-mode negative --encoding gbk
 submit copydir "/source" "/dest"
 ```
 
-`copydir` 也支持 [`--convert-mode`](#--convert-mode) 和 [`--encoding`](#--encoding) 选项，用法相同。
+#### --convert-mode
+
+同 [`--convert-mode`](#--convert-mode)
+
+#### --macro-subs
+
+同 [`--macro-subs`](#--macro-subs)
+
+#### --encoding
+
+同 [`--encoding`](#--encoding)
 
 #### --exclude-dirs
 
