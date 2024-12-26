@@ -173,6 +173,12 @@ submit copyfile --convert-mode negative
 submit copyfile --convert-mode negative --encoding gbk
 ```
 
+> [!NOTE]
+>
+> 本程序使用 [chardet](https://github.com/chardet/chardet) 进行编码格式的自动识别，但 `chardet` 会将 `gbk` 编码的文件错误地识别为 `gb2312` 编码。https://github.com/chardet/chardet/issues/168
+>
+> 如果出现类似 `UnicodeDecodeError:'gb2312'codec can't decode byte xfb in position 6436: illegal multibyte sequence` 的错误提示，请尝试手动指定 `--encoding gbk`。
+
 ### 处理多个 SAS 文件
 
 子命令 `copydir` 用于处理包含 `.sas` 文件的目录，该命令将以递归的方式自动查找扩展名为 `.sas` 的文件并进行处理，非 `.sas` 文件将被忽略。
