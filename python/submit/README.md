@@ -167,7 +167,7 @@ submit copyfile --convert-mode negative
 
 #### --macro-subs
 
-`--macro-subs` 选项用于替换 `.sas` 文件中宏变量，它应当是一个字典，形式为 `{key=value}`，其键 `key` 为宏变量名称，值 `value` 为替换字符串。
+`--macro-subs` 选项用于替换 `.sas` 文件中宏变量，它应当是一个字典，形式为 `{key=value,...}`，其键 `key` 为宏变量名称，值 `value` 为替换字符串。
 
 例如，如果想将下面的代码块中的宏变量 `&id` 替换为 `01`：
 
@@ -176,7 +176,7 @@ submit copyfile --convert-mode negative
 data adeff;
     set adeff.adeff&id;
 run;
-/*submit begin*/
+/*submit end*/
 ```
 
 你需要指定 `--macro-subs "{id=01}"`。
@@ -184,6 +184,10 @@ run;
 > [!TIP]
 >
 > `value` 可以为空，例如 `--macro-subs "{id=}"`，此时程序将会删除宏变量 `&id`。
+
+> [!WARNING]
+>
+> `--macro-subs` 不支持嵌套的宏变量，例如：`&&id`，`&&&id` 等。
 
 #### --encoding
 
