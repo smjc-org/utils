@@ -165,6 +165,26 @@ submit copyfile --convert-mode negative
 %mend BAplot;
 ```
 
+#### --macro-subs
+
+`--macro-subs` 选项用于替换 `.sas` 文件中宏变量，它应当是一个字典，形式为 `{key=value}`，其键 `key` 为宏变量名称，值 `value` 为替换字符串。
+
+例如，如果想将下面的代码块中的宏变量 `&id` 替换为 `01`：
+
+```sas
+/*submit begin*/
+data adeff;
+    set adeff.adeff&id;
+run;
+/*submit begin*/
+```
+
+你需要指定 `--macro-subs "{id=01}"`。
+
+> [!TIP]
+>
+> `value` 可以为空，例如 `--macro-subs "{id=}"`，此时程序将会删除宏变量 `&id`。
+
 #### --encoding
 
 `--encoding` 选项指定 `.sas` 文件的编码格式。若未指定该选项，将尝试猜测最有可能的编码格式，并用于后续处理。
@@ -220,7 +240,8 @@ submit copydir "/source" "/dest" --exclude-dirs macro --exclude-files fcmp.sas f
 ### submit copyfile
 
 ```bash
-usage: submit [options] copyfile [-h] [-c {positive,negative,both}] [--encoding ENCODING] sas_file txt_file
+usage: submit [options] copyfile [-h] [-c {positive,negative,both}] [--macro-subs MACRO_SUBS] [--encoding ENCODING]
+                                 sas_file txt_file
 
 positional arguments:
   sas_file              SAS 文件路径
@@ -230,13 +251,17 @@ options:
   -h, --help            show this help message and exit
   -c, --convert-mode {positive,negative,both}
                         转换模式（默认 both）
+  --macro-subs MACRO_SUBS
+                        宏变量替换，格式为 {key1=value1,key2=value2}（默认无）
   --encoding ENCODING   编码格式（默认自动检测）
 ```
 
 ### submit copydir
 
 ```bash
-usage: submit [options] copydir [-h] [-c {positive,negative,both}] [--encoding ENCODING] [-exf [EXCLUDE_FILES ...]] [-exd [EXCLUDE_DIRS ...]] sas_dir txt_dir
+usage: submit [options] copydir [-h] [-c {positive,negative,both}] [--macro-subs MACRO_SUBS] [--encoding ENCODING]
+                                [-exf [EXCLUDE_FILES ...]] [-exd [EXCLUDE_DIRS ...]]
+                                sas_dir txt_dir
 
 positional arguments:
   sas_dir               SAS 文件目录
@@ -246,6 +271,8 @@ options:
   -h, --help            show this help message and exit
   -c, --convert-mode {positive,negative,both}
                         转换模式（默认 both）
+  --macro-subs MACRO_SUBS
+                        宏变量替换，格式为 {key1=value1,key2=value2}（默认无）
   --encoding ENCODING   编码格式（默认自动检测）
   -exf, --exclude-files [EXCLUDE_FILES ...]
                         排除文件列表（默认无）
