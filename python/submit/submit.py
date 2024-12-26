@@ -183,9 +183,7 @@ def main() -> None:
         default="both",
         help="转换模式（默认 both）",
     )
-    parent_parser.add_argument(
-        "--macro-subs", type=parse_dict, help="宏变量替换，格式为 {key1=value1,key2=value2}（默认无）"
-    )
+    parent_parser.add_argument("--macro-subs", type=parse_dict, help="宏变量替换，格式为 {key=value,...}（默认无）")
     parent_parser.add_argument("--encoding", default=None, help="编码格式（默认自动检测）")
 
     # 子命令 copyfile
