@@ -15,7 +15,7 @@
 在终端中执行以下命令：
 
 ```bash
-pip install git+https://github.com/smjc-macro/utils.git@main#subdirectory=python/submit
+pip install git+https://github.com/smjc-org/utils.git@main#subdirectory=python/submit
 ```
 
 该命令将会在系统中注册 `submit` 命令，以便后续使用。
