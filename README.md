@@ -4,7 +4,7 @@
 
 本仓库包含一些可能有用的工具包。
 
-- [submit.py](python/submit/README.md) 递交 `.sas` 代码至监管机构前的处理程序
+- [submit.py](https://github.com/smjc-org/py-submit) 递交 `.sas` 代码至监管机构前的处理程序
 
 ## pre-commit 安装
 
