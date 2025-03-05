@@ -8,6 +8,7 @@
 | ------- | ----------------------------- | -------------------------------------- | --------------------------------------------------------------- |
 | Python  | `submit.py`                   | 递交 `.sas` 代码至监管机构前的处理程序 | [↗️](https://github.com/smjc-org/py-submit/blob/main/README.md) |
 | Python  | `multi_encoding_converter.py` | 编码格式转换                           | [↗️](python/multi_encoding_converter/README.md)                 |
+| Batch   | `create_virtual_driver.bat`   | 创建虚拟磁盘                           | [↗️](batch/create_virtual_driver/README.md)                     |
 
 ## pre-commit 安装
 

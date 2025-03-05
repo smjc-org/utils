@@ -1,0 +1,2 @@
+subst V: "%cd%"
+quit
