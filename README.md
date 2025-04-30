@@ -9,6 +9,9 @@
 | Python  | `submit.py`                   | 递交 `.sas` 代码至监管机构前的处理程序 | [↗️](https://github.com/smjc-org/py-submit/blob/main/README.md) |
 | Python  | `multi_encoding_converter.py` | 编码格式转换                           | [↗️](python/multi_encoding_converter/README.md)                 |
 | Batch   | `create_virtual_driver.bat`   | 创建虚拟磁盘                           | [↗️](batch/create_virtual_driver/README.md)                     |
+| Batch   | `compdirtree.bat`             | 比较本地和服务器文件差异               | [↗️](batch/robocopy_sync/READMD.md)                             |
+| Batch   | `sync2cloud.bat`              | 同步至服务器                           | [↗️](batch/robocopy_sync/READMD.md)                             |
+| Batch   | `sync2local.bat`              | 同步至本地                             | [↗️](batch/robocopy_sync/READMD.md)                             |
 
 ## pre-commit 安装
 
