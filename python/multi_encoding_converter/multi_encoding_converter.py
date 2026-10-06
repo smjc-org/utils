@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 if __name__ == "__main__":
     # 以 gbk 编码格式为基准
     base_encode = "gbk"
